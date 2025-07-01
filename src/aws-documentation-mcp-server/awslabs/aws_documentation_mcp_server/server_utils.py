@@ -34,12 +34,17 @@ def get_ssl_verify():
     """Get the SSL verification setting based on environment variables.
     
     Returns:
-        bool or str: If REQUESTS_CA_BUNDLE is set, returns its value as the path to the certificate.
-                    Otherwise, returns True to use the default certificate store.
+        bool or str: Returns the path to the certificate from environment variables,
+                    or True to use the default certificate store.
     """
-    cert = os.environ.get('REQUESTS_CA_BUNDLE', True)
-    logger.info(f"debug cert: {cert}")
-    return cert
+    # Check for certificates in order of preference
+    for env_var in ['REQUESTS_CA_BUNDLE', 'SSL_CERT_FILE', 'CURL_CA_BUNDLE']:
+        cert_path = os.environ.get(env_var)
+        if cert_path:
+            logger.info(f"Using certificate from {env_var}: {cert_path}")
+            return cert_path
+    
+    return True
 
 async def read_documentation_impl(
     ctx: Context,
