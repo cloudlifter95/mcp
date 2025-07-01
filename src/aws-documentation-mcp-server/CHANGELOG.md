@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add environment variable `AWS_DOCUMENTATION_PARTITION` to select AWS documentation partition.
 - Add `get_available_services` and `read_documentation` when `AWS_DOCUMENTATION_PARTITION` is set to `aws-cn`.
+- Add support for custom SSL certificates through environment variables (`REQUESTS_CA_BUNDLE`, `SSL_CERT_FILE`, `CURL_CA_BUNDLE`).
 
 ## [1.0.0] - 2025-05-26
 
